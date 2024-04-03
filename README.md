@@ -2,7 +2,7 @@ Script for bootstrapping Arch Linux for my needs with my personnal defaults. Bas
 
 ## Preparation
 
-1. Enable WIFI
+1. Enable WIFI (if needed)
 	1. Identify your device (DEVICE)
 		```bash 
 		$ iwctl device list
@@ -19,10 +19,14 @@ Script for bootstrapping Arch Linux for my needs with my personnal defaults. Bas
 		```bash 
 		$ iwctl --passphrase=PASSPHRASE station DEVICE connect SSID
 		```
+2. Set your keyboard layout to stay sane
+```bash 
+$ loadkeys ca
+```
 
 ## Installation
 ```bash 
-wget -O lcw-arch.sh https://raw.githubusercontent.com/LapinChat/lcw-arch/main/lcw-arch.sh
+curl -O https://raw.githubusercontent.com/LapinChat/lcw-arch/main/lcw-arch.sh
 chmod +x lcw-arch.sh
 bash lcw-arch.sh
 ```
