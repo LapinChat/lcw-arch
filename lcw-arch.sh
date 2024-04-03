@@ -285,7 +285,7 @@ keyboard_selector () {
 # Setting up a name and an email for Git configuration (function).
 git_info_selector () {
     input_print "Please enter a name for a git user (usualy your full name) (e.g. Bob Picard): "
-    read -r git_name
+    IFS= read -r git_name
     if [[ -z "$gitname" ]]; then
         echo
         error_print "You need to enter a name, please try again."
