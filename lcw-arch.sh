@@ -54,7 +54,7 @@ kernel_selector () {
     info_print "2) Hardened: A security-focused Linux kernel"
     info_print "3) Longterm: Long-term support (LTS) Linux kernel"
     info_print "4) Zen Kernel: A Linux kernel optimized for desktop usage"
-    input_print "Please select the number of the corresponding kernel (e.g. 1)(enter empty to use 'Stable'): " 
+    input_print "Please select the number of the corresponding kernel (e.g. 1) (enter empty to use 'Stable'): " 
     read -r kernel_choice
     case $kernel_choice in
         '') kernel="linux"
@@ -103,8 +103,6 @@ network_interface_selector () {
     info_print "Network interface (default = wlan0):"
     info_print "Currently available interfaces:"
     ls /sys/class/net/
-    echo
-    info_print "===="
     input_print "Please enter the interface name to be used. (e.g. wlan0) (Empty for default): "
     read -r network_interface
     if [[ -z "$network_interface" ]]; then
@@ -118,7 +116,7 @@ network_interface_type_selector () {
     info_print "Type of the selected network interface (default = Wireless):"
     info_print "1) Wireless"
     info_print "2) Wired"
-    input_print "Please select the number of the corresponding kernel (e.g. 1)(enter empty to use 'Wireless'): " 
+    input_print "Please select the number of the corresponding kernel (e.g. 1) (enter empty to use 'Wireless'): " 
     read -r network_interface_type
     case $network_interface_type in
         '') network_interface_type="wireless"
@@ -315,7 +313,6 @@ echo -ne "${BOLD}${BYELLOW}
 ================================================ since 2024 =====
 ${RESET}"
 info_print "Welcome to LCW-Arch, a script made in order to simplify the process of installing Arch Linux."
-timedatectl
 
 # Setting up keyboard layout.
 until keyboard_selector; do : ; done
@@ -342,7 +339,7 @@ until network_interface_type_selector; do : ; done
 
 # User choses the locale.
 until locale_selector; do : ; done
-until optional_locale_selector; do: ; done
+until optional_locale_selector; do : ; done
 
 # User choses the hostname.
 until hostname_selector; do : ; done
