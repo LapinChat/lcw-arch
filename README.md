@@ -3,14 +3,22 @@ Script for bootstrapping Arch Linux for my needs with my personnal defaults. Bas
 ## Preparation
 
 1. Enable WIFI
-	1.1 Identify your device (DEVICE)
-		'$ iwctl device list'
-	1.2 Scan wifi networks
+	1. Identify your device (DEVICE)
+		```bash 
+		$ iwctl device list
+		```
+	2. Scan wifi networks
+		```bash 
 		$ iwctl station DEVICE scan
-	1.3 list wifi networks
+		```
+	3. list wifi networks
+		```bash 
 		$ iwctl station DEVICE get-networks
-	1.4 Connect to wifi
+		```
+	4. Connect to wifi
+		```bash 
 		$ iwctl --passphrase=PASSPHRASE station DEVICE connect SSID
+		```
 
 ## Installation
 ```bash 
