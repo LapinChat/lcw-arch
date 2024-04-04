@@ -388,11 +388,11 @@ mkfs.fat -F 32 "$ESP_DEVICE" &>/dev/null
 
 # Initialize swap partition
 info_print "Initialize SWAP partition."
-mkswap "$SWAP_DEVICE"
+mkswap "$SWAP_DEVICE" &>/dev/null
 
 # Formatting the System partition as ext4.
 info_print "Formatting the system partition as Ext4."
-mkfs.ext4 "$SYSTEM_DEVICE" 
+mkfs.ext4 "$SYSTEM_DEVICE" &>/dev/null
 
 # Mounting the newly created subvolumes.
 info_print "Mounting the newly created subvolumes."
@@ -404,7 +404,8 @@ swapon "$SWAP_DEVICE"
 microcode_detector
 
 # Pacstrap (setting up a base sytem onto the new root).
-info_print "Installing the base system (it may take a while)."
+info_print "Installing the base system (it may take a while). Requested packages: "
+REQUESTEDPACKAGE="base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo git lynx"
 pacstrap -K /mnt base "$kernel""$microcode" linux-firmware e2fsprogs exfatprogs "$network" man-db man-pages texinfo nano neofetch grub efibootmgr sudo git lynx &>/dev/null
 
 # Generating /etc/fstab.
