@@ -13,10 +13,13 @@
 #   1.4 Connect to wifi
 #       $ iwctl --passphrase=PASSPHRASE station DEVICE connect SSID
 #
-# 2. Get script
-#   $ wget -O lcw-arch.sh https://raw.githubusercontent.com/LapinChat/lcw-arch/main/lcw-arch.sh
+# 2. Set keyboard layout
+#   $ loadkeys ca
 #
-# 3. Run script
+# 3. Get script
+#   $ curl -O https://raw.githubusercontent.com/LapinChat/lcw-arch/main/lcw-arch.sh
+#
+# 4. Run script
 #   $ chmod +x lcw-arch.sh
 #   $ bash lcw-arch.sh
 ########################
