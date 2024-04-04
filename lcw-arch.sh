@@ -21,7 +21,7 @@
 #
 # 4. Run script
 #   $ chmod +x lcw-arch.sh
-#   $ bash lcw-arch.sh
+#   $ ./lcw-arch.sh
 ########################
 
 # Cleaning the TTY.
