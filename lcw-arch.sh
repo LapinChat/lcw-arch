@@ -295,7 +295,7 @@ git_info_selector () {
         return 1
     fi
     input_print "Please enter an email for $gitname: "
-    read -r git_email
+    read -r gitemail
     if [[ -z "$gitemail" ]]; then
         echo
         error_print "You need to enter an email for $gitname, please try again."
