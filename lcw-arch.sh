@@ -256,7 +256,7 @@ optional_locale_selector () {
         '/') sed -E '/^# +|^#$/d;s/^#| *$//g;s/ .*/ (Charset:&)/' /etc/locale.gen | less -M
                 clear
                 return 1;;
-        *)  if ! grep -q "^#\?$(sed 's/[].*[]/\\&/g' <<< "$locale") " /etc/locale.gen; then
+        *)  if ! grep -q "^#\?$(sed 's/[].*[]/\\&/g' <<< "$optionallocale") " /etc/locale.gen; then
                 error_print "The specified locale doesn't exist or isn't supported."
                 return 1
             fi
@@ -424,7 +424,7 @@ NTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.
 FallbackNTP=0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org
 EOT
 # Enable service
-systemctl enable systemd-timesyncd.service --root=/mnt
+systemctl enable systemd-timesyncd.service --root=/mnt &>/dev/null
 
 # Configure selected locale and console keymap
 info_print "Configure selected locale and console keymap."
