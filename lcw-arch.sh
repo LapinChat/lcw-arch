@@ -435,7 +435,7 @@ if [[ "$optionallocale" != *"n"* ]]; then
     sed -i "/^#$optionallocale/s/^#//" /mnt/etc/locale.gen
 fi
 arch-chroot /mnt locale-gen &>/dev/null
-echo "LANG=$locale" > /mnt/etc/locale.conf
+echo "LANG=$mainlocale" > /mnt/etc/locale.conf
 echo "KEYMAP=$kblayout" > /mnt/etc/vconsole.conf
 
 # Setting up the hostname.
