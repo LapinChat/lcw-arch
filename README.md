@@ -28,5 +28,5 @@ $ loadkeys ca
 ```bash 
 curl -O https://raw.githubusercontent.com/LapinChat/lcw-arch/main/lcw-arch.sh
 chmod +x lcw-arch.sh
-bash lcw-arch.sh
+./lcw-arch.sh
 ```
