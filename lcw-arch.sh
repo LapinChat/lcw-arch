@@ -226,16 +226,16 @@ hostname_selector () {
 
 # User chooses the locale (function).
 locale_selector () {
-    input_print "Please insert the locale you use (format: xx_XX. Enter nothing to use en_CA, or \"/\" to search locales): " locale
-    read -r locale
-    case "$locale" in
-        '') locale="en_CA.UTF-8"
-            info_print "$locale will be the default locale."
+    input_print "Please insert the locale you use (format: xx_XX. Enter nothing to use en_CA, or \"/\" to search locales): " mainlocale
+    read -r mainlocale
+    case "$mainlocale" in
+        '') mainlocale="en_CA.UTF-8"
+            info_print "$mainlocale will be the default locale."
             return 0;;
         '/') sed -E '/^# +|^#$/d;s/^#| *$//g;s/ .*/ (Charset:&)/' /etc/locale.gen | less -M
                 clear
                 return 1;;
-        *)  if ! grep -q "^#\?$(sed 's/[].*[]/\\&/g' <<< "$locale") " /etc/locale.gen; then
+        *)  if ! grep -q "^#\?$(sed 's/[].*[]/\\&/g' <<< "$mainlocale") " /etc/locale.gen; then
                 error_print "The specified locale doesn't exist or isn't supported."
                 return 1
             fi
@@ -428,8 +428,8 @@ systemctl enable systemd-timesyncd.service --root=/mnt &>/dev/null
 
 # Configure selected locale and console keymap
 info_print "Configure selected locale and console keymap."
-info_print "Select $locale locale."
-sed -i "/^#$locale/s/^#//" /mnt/etc/locale.gen
+info_print "Select $mainlocale locale."
+sed -i "/^#$mainlocale/s/^#//" /mnt/etc/locale.gen
 if [[ "$optionallocale" != *"n"* ]]; then
     info_print "Select $optionallocale as a secondary locale."
     sed -i "/^#$optionallocale/s/^#//" /mnt/etc/locale.gen
