@@ -451,8 +451,9 @@ cat > /mnt/etc/hosts <<EOF
 EOF
 
 # Setting systemd-networkd
-info_print "Setting systemd-networkd"
+info_print "Setting systemd-networkd for $network_interface_type."
 if [[ "$network_interface_type" == *"wireless"* ]]; then
+info_print "Setting /etc/systemd/network/25-wireless.network"
 arch-chroot /mnt cat <<EOT >> /etc/systemd/network/25-wireless.network
 [Match]
 Name=$network_interface
@@ -462,6 +463,7 @@ DHCP=yes
 IgnoreCarrierLoss=3s
 EOT    
 elif [[ "$network_interface_type" == *"wired"* ]]; then
+    info_print "Setting /etc/systemd/network/20-wired.network"
 arch-chroot /mnt cat <<EOT >> /etc/systemd/network/20-wired.network
 [Match]
 Name=$network_interface
@@ -498,13 +500,13 @@ fi
 
 info_print "Installing and configuring GRUB."
 # Installing GRUB
-arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB &>/dev/null
 # Creating GRUB config file.
-arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg &>/dev/null
 
 # Configure Git
 info_print "Configure Git for user $username."
-arch-chroot /mnt cat <<EOT >> /home/$username/.gitconfig
+cat <<EOT >> /mnt/home/$username/.gitconfig
 [user]
     name = $gitname
     email = $gitemail
@@ -533,7 +535,7 @@ sed -Ei 's/^#(Color)$/\1\nILoveCandy/;s/^#(ParallelDownloads).*/\1 = 10/' /mnt/e
 
 # Terminal eyes-candy features.
 info_print "Beautify terminal for user $username."
-arch-chroot /mnt cat <<EOT >> /home/$username/.bash_profile
+cat <<EOT >> /mnt/home/$username/.bash_profile
 # Colors in the terminal
 function parse_git_branch_and_add_brackets {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
