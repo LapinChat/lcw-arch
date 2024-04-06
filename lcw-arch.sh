@@ -419,7 +419,7 @@ arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/Montreal /etc/localtime
 arch-chroot /mnt hwclock --systohc
 info_print "Set and enable SNTP service."
 # Append lines to file
-arch-chroot /mnt cat <<EOT >> /etc/systemd/timesyncd.conf
+cat <<EOT >> /mnt/etc/systemd/timesyncd.conf
 NTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org
 FallbackNTP=0.pool.ntp.org 1.pool.ntp.org 2.pool.ntp.org 3.pool.ntp.org
 EOT
@@ -454,17 +454,17 @@ EOF
 info_print "Setting systemd-networkd for $network_interface_type."
 if [[ "$network_interface_type" == *"wireless"* ]]; then
 info_print "Setting /etc/systemd/network/25-wireless.network"
-arch-chroot /mnt cat <<EOT >> /etc/systemd/network/25-wireless.network
+cat <<EOT >> /mnt/etc/systemd/network/25-wireless.network
 [Match]
 Name=$network_interface
 
 [Network]
 DHCP=yes
 IgnoreCarrierLoss=3s
-EOT    
+EOT
 elif [[ "$network_interface_type" == *"wired"* ]]; then
-    info_print "Setting /etc/systemd/network/20-wired.network"
-arch-chroot /mnt cat <<EOT >> /etc/systemd/network/20-wired.network
+info_print "Setting /etc/systemd/network/20-wired.network"
+cat <<EOT >> /mnt/etc/systemd/network/20-wired.network
 [Match]
 Name=$network_interface
 
