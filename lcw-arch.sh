@@ -407,7 +407,7 @@ microcode_detector
 info_print "Installing the base system (it may take a while). Requested packages: "
 REQUESTEDPACKAGES="base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo git lynx"
 info_print "$REQUESTEDPACKAGES"
-pacstrap -K /mnt base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo git lynx
+pacstrap -K /mnt base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo git lynx &>/dev/null
 
 # Generating /etc/fstab.
 info_print "Generating a new fstab."
@@ -474,8 +474,11 @@ fi
 ln -sf ../run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
 # Setting up the network.
 network_installer
-# Enable service
-systemctl enable systemd-networkd systemd-resolved iwd --root=/mnt
+systemctl enable systemd-networkd systemd-resolved --root=/mnt &>/dev/null
+# Enable services
+if [[ "$network_interface_type" == *"wireless"* ]]; then
+    systemctl enable iwd --root=/mnt &>/dev/null
+fi
 
 # Generating a new initramfs.
 arch-chroot /mnt mkinitcpio -P
