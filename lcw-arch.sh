@@ -434,7 +434,7 @@ if [[ "$optionallocale" != *"n"* ]]; then
     info_print "Select $optionallocale as a secondary locale."
     sed -i "/^#$optionallocale/s/^#//" /mnt/etc/locale.gen
 fi
-arch-chroot /mnt locale-gen
+arch-chroot /mnt locale-gen &>/dev/null
 echo "LANG=$locale" > /mnt/etc/locale.conf
 echo "KEYMAP=$kblayout" > /mnt/etc/vconsole.conf
 
@@ -481,7 +481,7 @@ if [[ "$network_interface_type" == *"wireless"* ]]; then
 fi
 
 # Generating a new initramfs.
-arch-chroot /mnt mkinitcpio -P
+arch-chroot /mnt mkinitcpio -P &>/dev/null
 
 # Setting root password.
 info_print "Setting root password."
@@ -498,7 +498,7 @@ fi
 
 info_print "Installing and configuring GRUB."
 # Installing GRUB
-arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=esp --bootloader-id=GRUB
+arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 # Creating GRUB config file.
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
