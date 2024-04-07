@@ -321,6 +321,8 @@ info_print "Welcome to LCW-Arch, a script made in order to simplify the process 
 until keyboard_selector; do : ; done
 
 # Choosing the target for the installation.
+info_print "Detected disks:"
+lsblk -dp
 info_print "Available disks for the installation:"
 PS3="Please select the number of the corresponding disk (e.g. 1): "
 select ENTRY in $(lsblk -dpno NAME | grep -P "/dev/mmc|/dev/sd|nvme|vd");
