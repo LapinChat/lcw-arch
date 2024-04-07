@@ -536,14 +536,15 @@ info_print "Enabling colours, animations, and parallel downloads for pacman."
 sed -Ei 's/^#(Color)$/\1\nILoveCandy/;s/^#(ParallelDownloads).*/\1 = 10/' /mnt/etc/pacman.conf
 
 # Terminal eyes-candy features.
+# NOTE: '\\\$' will become '\$' because '\\' will output '\' and '\$' will output '$'.
 info_print "Beautify terminal for user $username."
-cat <<EOT >> /mnt/home/$username/.bash_profile
+cat <<EOT >> /mnt/home/$username/.bashrc
 # Colors in the terminal
 function parse_git_branch_and_add_brackets {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
-  }
+}
 export LSCOLORS=CxdxxxxxExxxxxExExCxCx
-PS1="\n\e[36m\$(parse_git_branch_and_add_brackets) \e[32;1m\u\e[0m \e[33;1m[\w]\e[0m\n $ "
+PS1="\n\e[36m\\\$(parse_git_branch_and_add_brackets) \e[32;1m\u\e[0m \e[33;1m[\w]\e[0m\n $ "
 EOT
 
 # Finishing up.
