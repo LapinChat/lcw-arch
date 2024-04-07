@@ -407,9 +407,9 @@ microcode_detector
 
 # Pacstrap (setting up a base sytem onto the new root).
 info_print "Installing the base system (it may take a while). Requested packages: "
-REQUESTEDPACKAGES="base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo git lynx"
+REQUESTEDPACKAGES="base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo openssh git lynx"
 info_print "$REQUESTEDPACKAGES"
-pacstrap -K /mnt base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo git lynx &>/dev/null
+pacstrap -K /mnt base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo openssh git lynx &>/dev/null
 
 # Generating /etc/fstab.
 info_print "Generating a new fstab."
