@@ -406,10 +406,11 @@ swapon "$SWAP_DEVICE"
 microcode_detector
 
 # Pacstrap (setting up a base sytem onto the new root).
+# TODO: acpi package should be installed only on desktop.
 info_print "Installing the base system (it may take a while). Requested packages: "
-REQUESTEDPACKAGES="base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo openssh git lynx"
+REQUESTEDPACKAGES="base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo openssh git lynx acpi"
 info_print "$REQUESTEDPACKAGES"
-pacstrap -K /mnt base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo openssh git lynx &>/dev/null
+pacstrap -K /mnt base $kernel$microcode linux-firmware e2fsprogs exfatprogs $network man-db man-pages texinfo nano neofetch grub efibootmgr sudo openssh git lynx acpi &>/dev/null
 
 # Generating /etc/fstab.
 info_print "Generating a new fstab."
